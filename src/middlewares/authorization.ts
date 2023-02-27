@@ -1,6 +1,7 @@
+import { NextFunction, Request, Response } from "express";
 import { decodeJWT, expressResponse } from "../utils/helper";
 
-function authentication(req, res, next) {
+export function authentication(req: Request, res: Response, next: NextFunction) {
   try {
     const token = req.headers.authorization
       ? req.headers.authorization.split(" ")[1]
@@ -14,14 +15,14 @@ function authentication(req, res, next) {
     const data = decodeJWT(token);
 
     if (data) {
-      return next(data.userRole);
+      return next(data["userRole"]);
     }
   } catch (error) {
     throwSystemError(res, error);
   }
 }
 
-function adminAccessRole(role, req, res, next) {
+export function adminAccessRole(role, req, res, next) {
   try {
     if (role == "admin") {
       return next();
@@ -38,7 +39,7 @@ function adminAccessRole(role, req, res, next) {
   }
 }
 
-function adminGuestAccessRole(role, req, res, next) {
+export function adminGuestAccessRole(role, req, res, next) {
   try {
     if (role == "admin" || role == "guest") {
       return next();
@@ -55,12 +56,12 @@ function adminGuestAccessRole(role, req, res, next) {
   }
 }
 
-function throwErrorOnAccessDenied(res, code, message, state) {
+export function throwErrorOnAccessDenied(res: Response, code: number, message: string, state?: boolean) {
   return expressResponse(res, code, message, state);
 }
 
-function throwSystemError(res, error) {
+export function throwSystemError(res: Response, error: any) {
   return expressResponse(res, 500, error.message);
 }
 
-export default { authentication, adminAccessRole, adminGuestAccessRole };
+// export default { authentication, adminAccessRole, adminGuestAccessRole };

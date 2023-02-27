@@ -1,13 +1,15 @@
 import mongoose from "mongoose";
-import { DB } from "../../config";
+import { config } from "../../config";
 
 mongoose.set("strictQuery", false);
 
 mongoose
-  .connect(DB, { useNewUrlParser: true })
+  .connect(config.DB as string,)
   .then(() => {
     console.log("connected to the database");
   })
   .catch(() => {
     console.log(" error connecting to the database");
   });
+
+export { }

@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-import { createRoom, updateRoom, deleteRoom, getRoom, getAllRooms } from "../controllers/roomController";
+import roomController from "../controllers/roomController";
 import { adminAccessRole, adminGuestAccessRole, authentication } from "../middlewares/authorization";
 import { validate } from "../validator/validator";
 import { roomValidator, updateRoomValidator } from "../validator/schemas/room.schema";
@@ -8,23 +8,23 @@ import { roomValidator, updateRoomValidator } from "../validator/schemas/room.sc
 router.post(
   "/",
   [validate(roomValidator), authentication, adminAccessRole],
-  createRoom
+  roomController.createRoom
 );
 router.patch(
   "/:id",
   [validate(updateRoomValidator), authentication, adminAccessRole],
-  updateRoom
+  roomController.updateRoom
 );
-router.delete("/:id", [authentication, adminAccessRole], deleteRoom);
+router.delete("/:id", [authentication, adminAccessRole], roomController.deleteRoom);
 router.get(
   "/:id",
   [authentication, adminAccessRole, adminGuestAccessRole],
-  getRoom
+  roomController.getRoom
 );
 router.get(
   "/",
   [authentication, adminAccessRole, adminGuestAccessRole],
-  getAllRooms
+  roomController.getAllRooms
 );
 
 export default router;

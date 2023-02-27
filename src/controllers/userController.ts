@@ -11,7 +11,7 @@ class UserController {
         ...user.toJSON(),
         password: undefined,
       });
-    } catch (err) {
+    } catch (err: any) {
       return expressResponse(res, 400, err.message);
     }
   }
@@ -27,7 +27,7 @@ class UserController {
         true,
         token
       );
-    } catch (err) {
+    } catch (err: any) {
       return expressResponse(res, 400, err.message);
     }
   }

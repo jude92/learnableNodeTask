@@ -1,5 +1,5 @@
 {
-  "include": ["src/*/"],
+  "include": ["src/*/", "src/database"],
   "exclude": ["src/tests/*/"],
   "compilerOptions": {
     "paths": {
