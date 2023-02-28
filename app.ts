@@ -1,9 +1,8 @@
 import express from "express";
 require("dotenv").config();
-import { config } from "../config";
-import router from "./routes/index";
-import "./database/db";
-// require("/database/db");
+import { config } from "./config";
+import router from "./src/routes/index";
+import "./src/database/db";
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
