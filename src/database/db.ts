@@ -12,4 +12,3 @@ mongoose
     console.log(" error connecting to the database");
   });
 
-export { }
